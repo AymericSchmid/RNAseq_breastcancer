@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+WORKING_DIR="/data/users/aschmid/RNAseq_project/RNAseq_breastcancer"
+TOOLS_DIR="/data/courses/rnaseq_course/tools"
+READS_DIR="/data/courses/rnaseq_course/breastcancer_de/reads"
+
+# Creating a directory for the outpout files of the worklfow
+mkdir "$WORKING_DIR/output"
+
+# Generating a file that will contain a list of path to the fastq files
+$TOOLS_DIR/get_samplelist.sh $READS_DIR > $WORKING_DIR/reads_list.tsv
