@@ -8,12 +8,15 @@
 #SBATCH --output=/data/users/aschmid/RNAseq_project/RNAseq_breastcancer/output/dir_set_up_output_%j.o
 #SBATCH --error=/data/users/aschmid/RNAseq_project/RNAseq_breastcancer/output/dir_set_up_error_%j.o
 
-WORKING_DIR="/data/users/aschmid/RNAseq_project/RNAseq_breastcancer"
+# Define variables
+RESULTS_DIR="/data/users/aschmid/RNAseq_project/RNAseq_breastcancer/results"
 TOOLS_DIR="/data/courses/rnaseq_course/tools"
 READS_DIR="/data/courses/rnaseq_course/breastcancer_de/reads"
+METADATA_DIR="/data/users/aschmid/RNAseq_project/RNAseq_breastcancer/metadata"
 
 # Creating a directory for the outpout files of the worklfow
-mkdir "$WORKING_DIR/output"
+mkdir $RESULTS_DIR
+mkdir $METADATA_DIR
 
 # Generating a file that will contain a list of path to the fastq files
-$TOOLS_DIR/get_samplelist.sh $READS_DIR > $WORKING_DIR/reads_list.tsv
+$TOOLS_DIR/get_samplelist.sh $READS_DIR > $METADATA_DIR/reads_list.tsv
