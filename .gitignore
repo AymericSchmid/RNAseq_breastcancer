@@ -2,5 +2,5 @@
 output/
 results/
 metadata/
-analysis/.Rhistory
-analysis/data/
+DE_analysis/.Rhistory
+DE_analysis/data/
