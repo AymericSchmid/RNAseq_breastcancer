@@ -11,6 +11,7 @@ dds <- readRDS(DDS_FILE_SIMPLE)
 res <- results(dds, contrast = c("type", PAIR_INTEREST))
 
 # Annotating the results with gene names
+# multiVals = "first" is used to keep only the first gene name if multiple are found
 res$geneName <- mapIds(org.Hs.eg.db,
                            keys = rownames(res),
                            column = "SYMBOL",
@@ -50,12 +51,11 @@ rownames(vsd_subset) <- res[genes_interest_ids, "geneName"]
 pheatmap_annotation_col <- data.frame(type=colData(dds)[,"type"])
 rownames(pheatmap_annotation_col) <- rownames(colData(dds))
 
-
 # Generate heatmap
 pheatmap(vsd_subset, 
-         cluster_rows=FALSE, 
+         cluster_rows=TRUE, 
          show_rownames=TRUE,
-         cluster_cols=FALSE,
+         cluster_cols=TRUE,
          annotation_col=pheatmap_annotation_col,
          color = colorRampPalette(c("royalblue1", "ivory", "violetred"))(50))
 

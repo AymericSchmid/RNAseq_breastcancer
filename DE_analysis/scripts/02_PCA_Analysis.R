@@ -5,8 +5,8 @@ dds_simple <- readRDS(DDS_FILE_SIMPLE)
 dds_multi <- readRDS(DDS_FILE_MULTI)
 
 # Variance stabilizing transformation (VST) for both datasets
-vsd_simple <- vst(dds_simple, blind = TRUE)
-vsd_multi <- vst(dds_multi, blind = TRUE)
+vsd_simple <- vst(dds_simple)
+vsd_multi <- vst(dds_multi)
 
 # PCA plots for both cases
 # Extract PCA data for both datasets

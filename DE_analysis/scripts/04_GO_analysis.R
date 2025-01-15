@@ -3,7 +3,6 @@ source("scripts/utils.R")
 
 library(org.Hs.eg.db) 
 library(clusterProfiler)
-library(DOSE)
 library(enrichplot)
 
 # Load the DE genes file
@@ -18,9 +17,9 @@ ego <- enrichGO(gene          = rownames(DE_genes_sig),
                 ont           = "BP", # I think we are only interested in biological process
                 keyType       = "ENSEMBL")
 
-# Plot the top 20 GO terms
-barplot(ego, showCategory=20) 
+# Plot the top 20 GO categories
+barplot(ego, showCategory=15) 
 
 ego_df <- as.data.frame(ego)
-# Get the top 20 GO terms
-top_go_terms <- ego_df[order(ego_df$p.adjust), ][1:20, c("ID", "Description", "p.adjust")]
+# Saving the results
+write.csv(ego_df[order(ego_df$p.adjust), ], "results/GO_analysis.csv")
