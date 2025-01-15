@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#SBATCH --cpus-per-task=6
-#SBATCH --mem-per-cpu=6G
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=4G
 #SBATCH --time=15:00:00
 #SBATCH --partition=pibu_el8
 #SBATCH --job-name=RNAseq_reads_counting

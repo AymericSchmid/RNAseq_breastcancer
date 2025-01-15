@@ -21,4 +21,4 @@ SAMPLE=$(awk -v line=$SLURM_ARRAY_TASK_ID 'NR==line{print $1; exit}' $SAMPLE_LIS
 
 echo "Converting SAM to BAM for $SAMPLE">&2
 
-apptainer exec --bind $SAM_DIR,$RESULTS_DIR $HISAT2_IMG samtools view -hbS $SAM_DIR/$SAMPLE.sam > $RESULTS_DIR/$SAMPLE"_unsorted.bam"
+apptainer exec --bind $SAM_DIR,$RESULTS_DIR $HISAT2_IMG samtools view -@ $SLURM_CPUS_PER_TASK -hbS $SAM_DIR/$SAMPLE.sam > $RESULTS_DIR/$SAMPLE"_unsorted.bam"
