@@ -1,6 +1,6 @@
 # Ignoring:
 output/
 results/
-metadata/
 DE_analysis/.Rhistory
 DE_analysis/data/
+DE_analysis/results/

@@ -18,7 +18,7 @@ ego <- enrichGO(gene          = rownames(DE_genes_sig),
                 keyType       = "ENSEMBL")
 
 # Plot the top 20 GO categories
-barplot(ego, showCategory=15) 
+barplot(ego, showCategory=10, title="Top Enriched Biological Processes Identified by GO Analysis of Differentially Expressed \nGenes between TNBC and Non-TNBC Subtypes") 
 
 ego_df <- as.data.frame(ego)
 # Saving the results

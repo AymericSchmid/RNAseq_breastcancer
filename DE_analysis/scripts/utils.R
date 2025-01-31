@@ -17,6 +17,7 @@ library(stringr)
 library(DESeq2)
 library(ggplot2)
 library(gridExtra)
+library(ggrepel)
 
 # ------ Constants ------
 
@@ -60,12 +61,18 @@ generate_sample_metadata <- function(counts){
 
 custom_pca_plot <- function(pca_data, title){
   percents <- round(100 * attr(pca_data, "percentVar"))
-  plot <- ggplot(pca_data, aes(PC1, PC2, color=type)) +
+  plot <- ggplot(pca_data, aes(PC1, PC2, color=type, label=name)) +
     geom_point(size=3) +
-    labs(title = title) +
+    labs(title = title, color = "Sample Type") +
     xlab(paste0("PC1: ",percents[1],"% variance")) +
     ylab(paste0("PC2: ",percents[2],"% variance")) + 
     coord_fixed() +
+    geom_label_repel(aes(label = name),
+                     size=3,
+                     box.padding   = 0.35, 
+                     point.padding = 0.5,
+                     segment.color = 'grey50',
+                     show.legend = F) +
     theme_minimal()
   return(plot)
 }
@@ -89,6 +96,10 @@ generate_gene_counts_plot <- function(gene_id, dds, res, pair_interest=c()) {
 # Function to get the file name where the DE genes will be saved for a given pair of interest
 get_DE_genes_file <- function(pair_interest){
   return(paste0("results/DE_genes_", pair_interest[1], "_vs_", pair_interest[2], ".txt"))
+}
+
+get_interesting_DE_genes_file <- function(pair_interest){
+  return(paste0("results/DE_genes_interesting_", pair_interest[1], "_vs_", pair_interest[2], ".txt"))
 }
 
 # Filter significant DE genes based on adjusted p-value threshold

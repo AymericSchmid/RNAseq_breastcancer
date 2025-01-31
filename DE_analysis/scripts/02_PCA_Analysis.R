@@ -24,5 +24,5 @@ grid.arrange(plot_simple, plot_multi, ncol = 2)
 assigned_simple <- sum(counts(dds_simple))
 assigned_multi <- sum(counts(dds_multi))
 
-cat("Number of genes assigned in samples (without multimapped reads):", assigned_simple)
-cat("Number of genes assigned in samples (with multimapped reads):", assigned_multi)
+cat("Number of alignments assigned in samples (without multimapped reads):", assigned_simple)
+cat("Number of alignments assigned in samples (with multimapped reads):", assigned_multi)

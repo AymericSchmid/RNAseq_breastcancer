@@ -30,13 +30,17 @@ cat("Number of DE genes (padj < 0.05):", num_de_genes, "\n")
 # Number of upregulated and downregulated genes
 num_upregulated <- sum(res_sig$log2FoldChange > 0)
 num_downregulated <- sum(res_sig$log2FoldChange < 0)
-cat("Upregulated genes:", num_upregulated, "\n")
-cat("Downregulated genes:", num_downregulated, "\n")
+cat("Upregulated genes in", PAIR_INTEREST[1], "compared to", PAIR_INTEREST[2], ":", 
+    num_upregulated, "\n")
+cat("Downregulated genes in", PAIR_INTEREST[1], "compared to", PAIR_INTEREST[2], ":",
+    num_downregulated, "\n")
 
 # Defining genes of interest
-genes_interest_ids <- head(rownames(res[order(res$padj),]), 10) # Getting the top genes with the lowest p-value
+genes_interest_ids <- head(rownames(res_sig[order(res_sig$padj),]), 10) # Getting the top genes with the lowest p-value
 genes_interest_ids <- c(genes_interest_ids, 
                     rownames(res[res$geneName %in% c("SPARC", "RACK1", "APOE"),]))             # Manually defining genes of interest
+
+write.csv(res[genes_interest_ids, c("geneName", "log2FoldChange", "padj", "baseMean")], get_interesting_DE_genes_file(PAIR_INTEREST))
 
 # For each gene of interest, plot the expression levels across the different sample groups (TNBC, NonTNBC)
 counts_plots <- lapply(genes_interest_ids, generate_gene_counts_plot, dds = dds, res = res, pair_interest = PAIR_INTEREST)
@@ -58,10 +62,3 @@ pheatmap(vsd_subset,
          cluster_cols=TRUE,
          annotation_col=pheatmap_annotation_col,
          color = colorRampPalette(c("royalblue1", "ivory", "violetred"))(50))
-
-# Do a volcano or heatmap (specific to some genes like ESR1 and ESR2 or top5 most expressed
-#                           The heatmap take the counts as input)
-# ESR1 and ESR2 are the ER genes
-# ERBB2 is the HER2 gene
-
-# Next step is do a dotplot ?
